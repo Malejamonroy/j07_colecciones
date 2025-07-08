@@ -1,18 +1,21 @@
 package modelo;
 
+import java.text.Collator;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Cliente implements Comparable<Cliente> {
 
 	private int idCliente;
-	private String nombreString;
+	private String nombre;
 	private String apellido1;
 	private String apellido2;
 	
 	public Cliente(int idCliente, String nombreString, String apellido1, String apellido2) {
 		super();
 		this.idCliente = idCliente;
-		this.nombreString = nombreString;
+		this.nombre = nombreString;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 	}
@@ -26,11 +29,11 @@ public class Cliente implements Comparable<Cliente> {
 	}
 	
 	public String getNombreString() {
-		return nombreString;
+		return nombre;
 	}
 	
 	public void setNombreString(String nombreString) {
-		this.nombreString = nombreString;
+		this.nombre = nombreString;
 	}
 	
 	public String getApellido1() {
@@ -69,15 +72,34 @@ public class Cliente implements Comparable<Cliente> {
 
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", nombreString=" + nombreString + ", apellido1=" + apellido1
+		return "Cliente [idCliente=" + idCliente + ", nombreString=" + nombre + ", apellido1=" + apellido1
 				+ ", apellido2=" + apellido2 + "]";
 	}
 
 	@Override
 	public int compareTo(Cliente o) {
-		return this.idCliente - o.idCliente;
+		return this.idCliente - o.idCliente; 
+		// <0 this va antes que o
+		// =0 this iguales
+		// <0 this va despues que o
 	}
 	
+	//crear un metodo que retorne un comparator por apelllido y nombre
+	 public static Comparator<Cliente> getComparatorApellidos(){
+		 return new Comparator<Cliente>() {//hacemos una clase anonima 
+
+			@Override
+			public int compare(Cliente o1, Cliente o2) {
+				String nom1 = o1.apellido1 + o1.apellido2 + o1.nombre + o1.idCliente;
+				String nom2 = o2.apellido1 + o2.apellido2 + o2.nombre + o2.idCliente;
+				//hay que definirlo al lenguaje español
+				Collator col= Collator.getInstance(new Locale("es"));
+				return col.compare(nom1, nom2); //un colector tiene un metodo llamado compare y el compara lo que queremos que en este caso es nombre 
+				
+			
+			}};
+	 }
+	 
 	
 	
 	

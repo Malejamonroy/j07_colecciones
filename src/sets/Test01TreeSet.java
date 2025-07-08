@@ -45,13 +45,16 @@ public class Test01TreeSet {
 		Cliente c5 = new Cliente(815, "Jacinto", "Jimenez", "Perez");
 		
 		
+		
 		Set<Cliente> setClis = new TreeSet<Cliente>();
 		
 		setClis.add(c1);
 		setClis.add(c2);
 		setClis.add(c3);
 		setClis.add(c4);
-		setClis.add(c5);	
+		setClis.add(c5);
+		
+		
 		
 		for(Cliente cli:setClis) {
 			System.out.println(cli);
